@@ -1,0 +1,40 @@
+{
+    "layer": "top",
+    "margin": "10 10 0 10",
+    "spacing": 8,
+
+    "modules-left": ["custom/arch-btw", "hyprland/workspaces"],
+    "modules-center": ["clock"],
+    "modules-right": ["tray", "bluetooth","battery"],
+
+    "custom/arch-btw": {
+        "format": "󰣇"
+    },
+
+    "battery": {
+        "format": "{capacity}% <span font='12'>{icon}</span>",
+        "format-icons": {
+            "default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+            "charging": ["󰂄"]
+        },
+    },
+
+    "clock": {
+        "format-alt": "{:%a, %d. %b  %H:%M}"
+    },
+
+    "bluetooth": {
+        "format": " {status}",
+        "format-disabled": "", 
+        "format-connected": " {num_connections}",
+        "tooltip-format": "{controller_alias}\t{controller_address}",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
+    },
+
+    "tray": {
+        "icon-size": 18,
+        "spacing": 10
+    }
+}
+
