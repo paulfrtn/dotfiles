@@ -5,7 +5,7 @@
 
     "modules-left": ["custom/arch-btw", "hyprland/workspaces"],
     "modules-center": ["clock"],
-    "modules-right": ["tray", "bluetooth","battery"],
+    "modules-right": ["power-profiles-daemon", "tray", "bluetooth","battery"],
 
     "custom/arch-btw": {
         "format": "󰣇"
@@ -18,6 +18,19 @@
             "charging": ["󰂄"]
         },
     },
+
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+        "tooltip": true,
+        "format-icons": {
+            "default": "",
+            "performance": "",
+            "balanced": "",
+            "power-saver": ""
+        },
+    },
+    
 
     "clock": {
         "format-alt": "{:%a, %d. %b  %H:%M}"

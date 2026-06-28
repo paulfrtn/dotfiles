@@ -46,7 +46,8 @@ tooltip label {
 #clock, 
 #battery,
 #bluetooth,
-#tray
+#tray,
+#power-profiles-daemon
 {
     border-radius: 1000px;
     padding: 0 10px;
@@ -95,4 +96,22 @@ tooltip label {
     margin-top: 10px;
     background: #042A2B;
     color: white;
+}
+
+#power-profiles-daemon {
+    background-color: #042A2B;
+    font-size: 24px;
+    color: white;
+}
+
+#power-profiles-daemon.performance {
+    color: #00BFFF;  /* bleu électrique - perf max */
+}
+
+#power-profiles-daemon.balanced {
+    color: #C792EA;  /* gris clair - neutre */
+}
+
+#power-profiles-daemon.power-saver {
+    color: #26A65B;  /* vert - éco */
 }
