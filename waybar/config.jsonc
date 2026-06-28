@@ -5,10 +5,15 @@
 
     "modules-left": ["custom/arch-btw", "hyprland/workspaces"],
     "modules-center": ["clock"],
-    "modules-right": ["power-profiles-daemon", "tray", "bluetooth","battery"],
+    "modules-right": ["power-profiles-daemon", "tray", "bluetooth","battery", "custom/wlogout"],
 
     "custom/arch-btw": {
         "format": "󰣇"
+    },
+
+    "custom/wlogout": {
+        "format": "",
+        "on-click": "wlogout",
     },
 
     "battery": {
