@@ -9,6 +9,7 @@ local launcher = "wofi"
 local locker = "hyprlock"
 local screenshot = "~/.config/hypr/scripts/screenshot.sh"
 local waypaper = "waypaper"
+local clipboard = "~/.config/hypr/scripts/clipboard.sh"
 
 ---------------------
 ---- KEYBINDINGS ----
@@ -31,6 +32,7 @@ hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized", action
 hl.bind(mainMod .. " + X", hl.dsp.exec_cmd(locker))
 
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(waypaper))
+hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(clipboard))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left" }))
