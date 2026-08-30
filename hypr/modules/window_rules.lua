@@ -55,6 +55,14 @@ hl.window_rule({
 	float = true,
 })
 
+hl.window_rule({
+	match = {
+		class = "^md\\.obsidian\\.Obsidian$",
+		title = "^Settings.*",
+	},
+	float = true,
+})
+
 hl.workspace_rule({
 	workspace = "name:coding",
 	monitor = "DP-2",
