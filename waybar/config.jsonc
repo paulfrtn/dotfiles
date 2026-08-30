@@ -5,7 +5,7 @@
 
     "modules-left": ["custom/arch-btw", "hyprland/workspaces"],
     "modules-center": ["clock"],
-    "modules-right": ["power-profiles-daemon", "tray", "bluetooth","battery", "custom/wlogout"],
+    "modules-right": ["power-profiles-daemon", "tray", "bluetooth","battery", "custom/notification" ,"custom/wlogout"],
 
     "custom/arch-btw": {
         "format": "󰣇"
@@ -15,6 +15,28 @@
         "format": "",
         "on-click": "wlogout",
     },
+
+    "custom/notification": {
+        "tooltip": true,
+        "format": "<span size='16pt'>{icon}</span>",
+        "format-icons": {
+            "notification": "󱅫",
+            "none": "󰂜",
+            "dnd-notification": "󰂠",
+            "dnd-none": "󰪓",
+            "inhibited-notification": "󰂛",
+            "inhibited-none": "󰪑",
+            "dnd-inhibited-notification": "󰂛",
+            "dnd-inhibited-none": "󰪑"
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
+    },
+
 
     "battery": {
         "format": "{capacity}% <span font='12'>{icon}</span>",
@@ -35,7 +57,7 @@
             "power-saver": ""
         },
     },
-    
+
 
     "clock": {
         "format-alt": "{:%a, %d. %b  %H:%M}"
@@ -53,6 +75,7 @@
     "tray": {
         "icon-size": 18,
         "spacing": 10
-    }
+    },
+
 }
 

@@ -32,6 +32,7 @@ tooltip label {
     font-size: 24px;
 }
 
+
 #workspaces button {
     border-radius: 50px;
     padding: 0 10px;
@@ -52,7 +53,8 @@ tooltip label {
 #bluetooth,
 #tray,
 #power-profiles-daemon,
-#custom-wlogout
+#custom-wlogout,
+#custom-notification
 {
     border-radius: 1000px;
     padding: 0 10px;
@@ -66,7 +68,8 @@ tooltip label {
 #battery,
 #bluetooth,
 #tray,
-#custom-wlogout
+#custom-wlogout,
+#custom-notification
 {
     background-color: #042A2B;
     color: white;
