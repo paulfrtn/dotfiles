@@ -70,7 +70,6 @@
       "image-radius": 19,
       "show-album-art": "playing",
       "blacklist": [
-        "firefox",
         "chromium",
         "brave",
         "mpv",
@@ -86,7 +85,7 @@
     },
     "backlight": {
       "label": "󰃠 ",
-      "device": "amdgpu_bl1",
+      "device": "intel_backlight",
       "subsystem": "backlight", 
       "min": 10
     },
@@ -124,7 +123,7 @@
         },
         {
           "label": "",
-          "command": "swaync-client -t -sw; ~/.config/rofi/launchers/powermenu.sh"
+          "command": "wlogout"
         }
 
       ]
