@@ -131,6 +131,9 @@ hl.bind(
 	{ locked = true, repeating = true }
 )
 
+hl.bind("Caps_Lock", hl.dsp.exec_cmd("swayosd-client --caps-lock"), { locked = true })
+hl.bind("Num_Lock", hl.dsp.exec_cmd("swayosd-client --num-lock"), { locked = true })
+
 -- Requires playerctl
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl --player=playerctld play-pause"), { locked = true })
