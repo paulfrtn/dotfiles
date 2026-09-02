@@ -69,22 +69,21 @@ hl.workspace_rule({
 	gaps_out = { top = 100, bottom = 100, left = 500, right = 500 },
 })
 
---[[
-if(hl.get_monitor("DP-2")) then
-    hl.workspace_rule({
-        workspace  = "name:laptop",
-        monitor    = "eDP-1",
-        persistent = true,
-        default    = true,
-    })
-    for i = 1, 10 do
-        local key = i % 10 -- 10 maps to key 0
-        hl.workspace_rule({
-            workspace = tostring(i),
-            monitor   = "DP-2"
-        })
-    end
-else
-    
-end
---]]
+hl.on("monitor.added", function(w)
+	for i = 1, 15 do
+		hl.workspace_rule({ workspace = tostring(i), monitor = "DP-2" })
+	end
+	hl.workspace_rule({ workspace = "name:isekai", monitor = "eDP-1", default = true, persistent = true })
+end)
+
+hl.on("monitor.removed", function(w)
+	for i = 1, 15 do
+		hl.workspace_rule({ workspace = tostring(i), monitor = "eDP-1" })
+	end
+	local main_windows = hl.get_workspace_windows("name:isekai")
+	for _, info in pairs(main_windows) do
+		local dsp = hl.dsp.window.move({ window = info.id, workspace = "1" })
+		hl.dispatch(dsp)
+	end
+	hl.workspace_rule({ workspace = "name:isekai", monitor = "eDP-1" })
+end)
