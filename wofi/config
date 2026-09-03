@@ -2,4 +2,4 @@ mode=drun
 allow_images=true
 image_size=60
 width=640
-normal_window=false
+normal_window=true

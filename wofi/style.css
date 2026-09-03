@@ -4,10 +4,11 @@
     border-radius: 12px;
     color: white;
     border:none;
+    outline: none;
 } 
 
 #window {
-    background: rgba(9, 21, 64, 0.6);
+    background: rgba(9, 21, 64, 0.4);
     padding: 10px;
 }
 
@@ -24,14 +25,30 @@
 }
 
 #input {
+    all: unset;
     background: transparent;
     border: none;
+    outline: none;
     font-size: 20px;
     min-height: 48px;
+    margin-top: 5px;
+    margin-left: 15px;
+    margin-right: 5px;
+    margin-bottom: 10px;
 }
 
-#input:selected {
+#input image {
     border: none;
+}
+
+#input * {
+    border: none;
+    outline: none;
+}
+
+#input:focus {
+    border: none;
+    outline: none;
 }
 
 #entry {
