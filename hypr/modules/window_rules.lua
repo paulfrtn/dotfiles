@@ -7,6 +7,8 @@
 
 -- Example window rules that are useful
 
+require("modules.env")
+
 local suppressMaximizeRule = hl.window_rule({
 	-- Ignore maximize requests from all apps. You'll probably like this.
 	name = "suppress-maximize-events",
@@ -65,25 +67,25 @@ hl.window_rule({
 
 hl.workspace_rule({
 	workspace = "name:coding",
-	monitor = "DP-2",
+	monitor = EXTERNAL_MONITOR,
 	gaps_out = { top = 100, bottom = 100, left = 500, right = 500 },
 })
 
 hl.on("monitor.added", function(w)
 	for i = 1, 15 do
-		hl.workspace_rule({ workspace = tostring(i), monitor = "DP-2" })
+		hl.workspace_rule({ workspace = tostring(i), monitor = EXTERNAL_MONITOR })
 	end
 	hl.workspace_rule({ workspace = "name:isekai", monitor = "eDP-1", default = true, persistent = true })
 end)
 
 hl.on("monitor.removed", function(w)
 	for i = 1, 15 do
-		hl.workspace_rule({ workspace = tostring(i), monitor = "eDP-1" })
+		hl.workspace_rule({ workspace = tostring(i), monitor = MAIN_MONITOR })
 	end
 	local main_windows = hl.get_workspace_windows("name:isekai")
 	for _, info in pairs(main_windows) do
 		local dsp = hl.dsp.window.move({ window = info.id, workspace = "1" })
 		hl.dispatch(dsp)
 	end
-	hl.workspace_rule({ workspace = "name:isekai", monitor = "eDP-1" })
+	hl.workspace_rule({ workspace = "name:isekai", monitor = MAIN_MONITOR })
 end)
