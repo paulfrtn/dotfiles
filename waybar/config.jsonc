@@ -60,6 +60,7 @@
 
 
     "clock": {
+        "format": "{:%H:%M}",
         "format-alt": "{:%a, %d. %b  %H:%M}"
     },
 
