@@ -71,11 +71,21 @@ hl.workspace_rule({
 	gaps_out = { top = 100, bottom = 100, left = 500, right = 500 },
 })
 
+hl.workspace_rule({
+	workspace = "name:isekai",
+	monitor = MAIN_MONITOR,
+})
+
 hl.on("monitor.added", function(w)
+	--Be sure that the .added do not count the laptop native monitor
+	--eDP1 as an added monitor
+	if w.name ~= EXTERNAL_MONITOR then
+		return
+	end
 	for i = 1, 15 do
 		hl.workspace_rule({ workspace = tostring(i), monitor = EXTERNAL_MONITOR })
 	end
-	hl.workspace_rule({ workspace = "name:isekai", monitor = "eDP-1", default = true, persistent = true })
+	hl.workspace_rule({ workspace = "name:isekai", monitor = MAIN_MONITOR, default = true, persistent = true })
 end)
 
 hl.on("monitor.removed", function(w)
@@ -87,5 +97,5 @@ hl.on("monitor.removed", function(w)
 		local dsp = hl.dsp.window.move({ window = info.id, workspace = "1" })
 		hl.dispatch(dsp)
 	end
-	hl.workspace_rule({ workspace = "name:isekai", monitor = MAIN_MONITOR })
+	hl.workspace_rule({ workspace = "name:isekai", monitor = MAIN_MONITOR, persistent = false })
 end)

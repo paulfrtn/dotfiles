@@ -2,6 +2,8 @@
 ---- MY PROGRAMS ----
 ---------------------
 
+require("modules.env")
+
 local terminal = "kitty"
 local fileManager = "nautilus"
 local browser = "zen-browser --enable-features=UseOzonePlatform --ozone-platform-hint=auto"
@@ -71,13 +73,28 @@ hl.bind(mainMod .. " + C", hl.dsp.focus({ workspace = "name:coding" }))
 -- Scroll through existing workspaces with mainMod + scroll
 hl.bind(mainMod .. " + mouse_right", function()
 	local cursor_monitor = hl.get_monitor_at_cursor()
-	if cursor_monitor and cursor_monitor.name == "eDP-1" and hl.get_monitor("DP-2") then
+	if cursor_monitor and cursor_monitor.name == MAIN_MONITOR and hl.get_monitor(EXTERNAL_MONITOR) then
 		return
 	end
 
 	local current_ws = hl.get_active_workspace()
-	if current_ws and current_ws.windows == 0 then
+	--Below line prevent being blocked, for example in workspace 1 if this one is empty while workspace 2 or more exists.
+	--We don't bloc swipping workspace i to workspace i+1 even if workspace i is empty
+	local ok, next_ws = pcall(hl.get_workspace, tostring(current_ws.id + 1))
+	if not ok then
+		next_ws = nil
+	end
+
+	if not next_ws and current_ws and current_ws.windows == 0 then
 		return
+	end
+
+	if current_ws.windows == 0 then
+		if next_ws then
+			hl.workspace_rule({ workspace = tostring(current_ws.id), monitor = cursor_monitor.name, persistent = true })
+		else
+			hl.workspace_rule({ workspace = tostring(current_ws.id), monitor = cursor_monitor.name, persistent = false })
+		end
 	end
 
 	hl.dispatch(hl.dsp.focus({ workspace = "r+1" }))
@@ -85,12 +102,28 @@ end)
 
 hl.bind(mainMod .. " + mouse_left", function()
 	local cursor_monitor = hl.get_monitor_at_cursor()
-	if cursor_monitor and cursor_monitor.name == "eDP-1" and hl.get_monitor("DP-2") then
+	if cursor_monitor and cursor_monitor.name == MAIN_MONITOR and hl.get_monitor(EXTERNAL_MONITOR) then
 		return
 	end
 
+	local current_ws = hl.get_active_workspace()
+	local ok, next_ws = pcall(hl.get_workspace, tostring(current_ws.id + 1))
+	if not ok then
+		next_ws = nil
+	end
+
+	if current_ws.windows == 0 then
+		if next_ws then
+			-- if not the last workspace and empty => stay persistent
+			hl.workspace_rule({ workspace = tostring(current_ws.id), monitor = cursor_monitor.name, persistent = true })
+		else
+			-- if last one and empty -> remove from persistent
+			hl.workspace_rule({ workspace = tostring(current_ws.id), monitor = cursor_monitor.name, persistent = false })
+		end
+	end
 	hl.dispatch(hl.dsp.focus({ workspace = "r-1" }))
 end)
+
 hl.bind(mainMod .. " + SHIFT + L", hl.dsp.focus({ workspace = "r+1" }))
 hl.bind(mainMod .. " + SHIFT + H", hl.dsp.focus({ workspace = "r-1" }))
 
