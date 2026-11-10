@@ -76,6 +76,8 @@ hl.workspace_rule({
 	monitor = MAIN_MONITOR,
 })
 
+local docked_timer
+
 hl.on("monitor.added", function(w)
 	--Be sure that the .added do not count the laptop native monitor
 	--eDP1 as an added monitor
@@ -86,16 +88,37 @@ hl.on("monitor.added", function(w)
 		hl.workspace_rule({ workspace = tostring(i), monitor = EXTERNAL_MONITOR })
 	end
 	hl.workspace_rule({ workspace = "name:isekai", monitor = MAIN_MONITOR, default = true, persistent = true })
+
+	docked_timer = hl.timer(function()
+		hl.dispatch(hl.dsp.focus({ workspace = "1" }))
+	end, { timeout = 300, type = "oneshot" })
 end)
 
+local cleanup_timer
+
+local function cleanup_isekai()
+	local main_windows = hl.get_workspace_windows("name:isekai")
+	for _, win in pairs(main_windows) do
+		local dsp = hl.dsp.window.move({ window = win, workspace = "1" })
+		hl.dispatch(dsp)
+	end
+
+	local ws = hl.get_active_workspace()
+	if ws and ws.name == "isekai" then
+		hl.dispatch(hl.dsp.focus({ workspace = "1" }))
+	end
+end
+
 hl.on("monitor.removed", function(w)
+	if w.name ~= EXTERNAL_MONITOR then
+		return
+	end
+
+	hl.workspace_rule({ workspace = "name:isekai", monitor = MAIN_MONITOR, persistent = false })
 	for i = 1, 15 do
 		hl.workspace_rule({ workspace = tostring(i), monitor = MAIN_MONITOR })
 	end
-	local main_windows = hl.get_workspace_windows("name:isekai")
-	for _, info in pairs(main_windows) do
-		local dsp = hl.dsp.window.move({ window = info.id, workspace = "1" })
-		hl.dispatch(dsp)
-	end
-	hl.workspace_rule({ workspace = "name:isekai", monitor = MAIN_MONITOR, persistent = false })
+
+	cleanup_isekai()
+	cleanup_timer = hl.timer(cleanup_isekai, { timeout = 300, type = "oneshot" })
 end)
